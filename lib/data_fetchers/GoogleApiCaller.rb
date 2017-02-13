@@ -5,6 +5,7 @@ class GoogleApi
 
   def initialize(url)
     @url = url
+#    binding.pry
     @places = JSON.parse(RestClient.get(url))
     @results_arr = []
   end
@@ -16,7 +17,9 @@ class GoogleApi
        name = result["name"]
        rating = result["rating"]
        location = result["vicinity"]
-       @results_arr << GoogleModel.new(name, location, rating)
+       price_level = result["price_level"]
+#       price = price_level.to_i.times{|x| "$"}
+       @results_arr << GoogleModel.new(name, location, rating, price_level)
      end
      @results_arr
    end
